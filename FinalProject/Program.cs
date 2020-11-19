@@ -79,6 +79,13 @@ namespace FinalProject
                 continueMenu = Convert.ToInt32(ReadLine());
             }
         }
+
+
+
+
+
+
+
         static void viewTennants(ref List<Tenant> tenantList)
         {
             foreach (Tenant x in tenantList)
@@ -95,8 +102,22 @@ namespace FinalProject
             string tenName = ReadLine();
             Write("Please enter phone number. ");
             int tenPhone = Convert.ToInt32(ReadLine());
-            Write("Has the tenant paid rent?");
-            bool tenPaid = Convert.ToBoolean(ReadLine());
+            WriteLine("Has the tenant paid rent?");
+            WriteLine("Enter (1) for Paid or (2) for not paid");
+            int yesNo = Convert.ToInt32(ReadLine());
+            bool tenPaid = false;
+            switch (yesNo)
+            {
+                case 1:
+                    tenPaid = true;
+                    break;
+                case 2:
+                    
+                    break;
+                default:
+                    WriteLine("Invalid Selection");
+                    break;
+            }
             Write("What type of the room does the tenant rent?");
             string roomType = Convert.ToString(ReadLine());
             Write("Enter rent amount");
@@ -131,7 +152,6 @@ namespace FinalProject
             {
                 WriteLine("Enter (1) for Paid or (2) for not paid");
                 int yesNo = Convert.ToInt32(ReadLine());
-                bool newPaid;
                 switch (yesNo)
                 {
                     case 1:
@@ -139,6 +159,9 @@ namespace FinalProject
                         break;
                     case 2:
                         tenantList[t].PersonPaid = false;
+                        break;
+                    default:
+                        WriteLine("Invalid Selection");
                         break;
                 }
 
