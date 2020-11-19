@@ -59,9 +59,10 @@ namespace FinalProject
                         break;
                     case 3:
                         WriteLine("Select Tenant");
+                        WriteLine("{0,5}{1,10}{2,20}", "#", "ID", "Name");
                         for (int i = 0; i < tenantList.Count; i++ )
                         {
-                            WriteLine("{0,20}{1,20}{2,20}", i + 1, tenantList[i].PersonId, tenantList[i].PersonName);
+                            WriteLine("{0,5}{1,10}{2,20}", i + 1, tenantList[i].PersonId, tenantList[i].PersonName);
                         }
                         int input = Convert.ToInt32(ReadLine());
 
@@ -69,7 +70,19 @@ namespace FinalProject
 
                         break;
                     case 4:
-
+                        WriteLine("Enter total monthly rent");
+                        double totalRent = Convert.ToDouble(ReadLine());
+                        for (int i = 0; i < tenantList.Count; i++)
+                        {
+                            if (tenantList[i].PersonPaid == false)
+                            {
+                                WriteLine(tenantList[i].PersonName + " has not paid rent.");
+                            }
+                           
+                        }
+                        double rentLeft = totalRent - RentCollected(ref tenantList);
+                        WriteLine("There is " + rentLeft.ToString("C") + " left to be collected.");
+                        
                         break;
                     default:
                         WriteLine("Invalid Selection");
@@ -88,9 +101,10 @@ namespace FinalProject
 
         static void viewTennants(ref List<Tenant> tenantList)
         {
+            WriteLine("{0,5}{1,20}{2,10}{3,10}{4,20}{5,20}", "ID", "Name", "Phone #", "Paid?", "Room Type", "Rent");
             foreach (Tenant x in tenantList)
             {
-                WriteLine("{0,20}{1,20}{2,20}{3,20}{4,20}{5,20}", x.PersonId, x.PersonName, x.PersonPhone, x.PersonPaid, x.RoomType, x.RentAmount);
+                WriteLine("{0,5}{1,20}{2,10}{3,10}{4,20}{5,20}", x.PersonId, x.PersonName, x.PersonPhone, x.PersonPaid, x.RoomType, x.RentAmount.ToString("C"));
             }
            
         }
@@ -180,6 +194,19 @@ namespace FinalProject
             }
 
 
+        }
+        static double RentCollected(ref List<Tenant> tenantList)
+        {
+            double subtotal = 0;
+            for (int i = 0; i < tenantList.Count; i++)
+            {
+                if(tenantList[i].PersonPaid == true)
+                {
+                    subtotal = subtotal + tenantList[i].RentAmount;
+                }               
+            }
+            
+            return subtotal;
         }
     }
 }
